@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <title>Requirement 1</title>
+  <style>
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /*background-color: #f5f7fb;*/
+  color: #111827;
+}
+h1, h2, h3 {
+  color: #000f46;
+}
+#quizset-wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px 12px 32px 12px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #d3d8e5;
+  box-shadow: 0 10px 18px rgba(15,23,42,0.05);
+}
+.qs-title {
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+}
+.qs-title span.icon {
+  font-size: 22px;
+}
+.qs-intro {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.qs-grid {
+  display: grid;
+  gap: 12px;
+}
+.qs-card {
+  border-radius: 10px;
+  border: 1px solid #d3d8e5;
+  background-color: #f9fafb;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+}
+.qs-question-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #4b5563;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.qs-prompt {
+  font-size: 14px;
+  line-height: 1.5;
+}
+.options-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.option-pill {
+  border-radius: 999px;
+  padding: 5px 11px;
+  font-size: 13px;
+  border: 1px solid #cbd5e1;
+  background-color: #e5edff;
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: normal;
+}
+.option-pill.selected {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 1px rgba(79,70,229,0.25);
+}
+.option-pill.correct {
+  background-color: #dcfce7;
+  border-color: #22c55e;
+}
+.option-pill.incorrect {
+  background-color: #fee2e2;
+  border-color: #ef4444;
+}
+.qs-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 8px;
+  margin-top: 6px;
+}
+.w-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 6px;
+  padding: 5px 11px;
+  font-size: 12px;
+  border-radius: 999px;
+  border: 1px solid #cbd5e1;
+  cursor: pointer;
+  background-color: #e5edff;
+  color: #111827;
+}
+.w-btn.secondary {
+  background-color: #ffffff;
+  color: #111827;
+  border-color: #cbd5e1;
+}
+.w-btn span.icon {
+  font-size: 13px;
+}
+.qs-status {
+  margin-top: 2px;
+}
+.qs-result {
+  font-size: 12px;
+  color: #111827;
+}
+.qs-feedback {
+  font-size: 11px;
+  color: #4b5563;
+}
+@media (max-width: 768px) {
+  #quizset-wrapper {
+    padding: 12px 10px 26px 10px;
+  }
+}
+
+
+.qg-gate {
+  margin-top: 14px;
+  border-radius: 12px;
+  border: 1px dashed #cbd5e1;
+  background: rgba(0,15,70,0.03);
+  padding: 12px;
+}
+.qg-gate-title {
+  font-weight: 800;
+  color: #000f46;
+  margin: 0 0 6px 0;
+  font-size: 14px;
+}
+.qg-gate-text {
+  margin: 0;
+  font-size: 13px;
+  color: #111827;
+  line-height: 1.5;
+}
+.qg-release {
+  margin-top: 14px;
+  border-radius: 12px;
+  border: 1px solid #d3d8e5;
+  background: #ffffff;
+  padding: 12px;
+}
+.qg-hidden { display: none; }
+.qg-toprow {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.qg-pill {
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+}
+
+    .uom-ui-button {
+	border: 1px solid;
+	border-radius: 4px;
+	display: inline-block;
+	font-weight: 700;
+	padding: 0.75rem 1rem;
+	text-decoration: none !important;
+	transition: border-color 0.15s ease-in-out, color 0.15s ease-in-out,
+		background-color 0.15s ease-in-out;
+}
+
+.uom-ui-button.uom-primary {
+	background-color: rgb(70, 200, 240);
+	color: rgb(0, 15, 70);
+	border-color: rgb(70, 200, 240);
+}
+
+.uom-ui-button.uom-primary:hover,
+.uom-ui-button.uom-primary:focus {
+	background-color: rgb(209, 241, 251);
+	border-color: rgb(209, 241, 251);
+	color: rgb(0 15 70);
+	cursor: pointer;
+}
+
+.qg-hidden{display:none;}
+
+  </style>
+</head>
+<body>
+<div id='quizset-wrapper'>
+  <h2 class='qs-title'><span class='icon'>🔓</span><span>Video Release</span></h2>
+  <p class='qs-intro'>Work through each question and check your answers.</p>
+  <div class='qg-toprow' id='qg-required' data-required='100'>
+    <span class='qg-pill'>Required: 100%</span>
+    <span class='qg-pill' id='qg-overall-pill'>Overall: 0/4 (0%)</span>
+  </div>
+  <div class='qs-grid' style='grid-template-columns: repeat(2, minmax(0, 1fr));'>
+    <div class='qs-card' data-qid='q1'>
+  <div class='qs-question-label'>Question 1</div>
+  <div class='qs-prompt'>Data validation can be used to effectively restrict the available options for text entry into a cell?</div>
+  <div class='options-list'>
+    <button id='q1_opt1' class='option-pill qs-option' data-qid='q1' data-correct='true' type='button' onclick="qsSelectOption('q1','q1_opt1')">True</button>
+        <button id='q1_opt2' class='option-pill qs-option' data-qid='q1' data-correct='false' type='button' onclick="qsSelectOption('q1','q1_opt2')">False</button>
+  </div>
+  <div class='qs-controls'>
+    <button class='w-btn' type='button' onclick="qsCheckQuestion('q1')"><span class='icon'>✅</span><span>Check</span></button>
+    <button class='w-btn secondary' type='button' onclick="qsResetQuestion('q1')"><span class='icon'>🔁</span><span>Reset</span></button>
+  </div>
+  <div class='qs-status'>
+    <div id='qs-result-q1' class='qs-result'>Select an option, then click Check answer.</div>
+    <div id='qs-feedback-q1' class='qs-feedback'></div>
+  </div>
+</div>
+    <div class='qs-card' data-qid='q2'>
+  <div class='qs-question-label'>Question 2</div>
+  <div class='qs-prompt'>Which of the following functions would you use to search an <code>array</code> to find a particular matching text string?</div>
+  <div class='options-list'>
+    <button id='q2_opt1' class='option-pill qs-option' data-qid='q2' data-correct='false' type='button' onclick="qsSelectOption('q2','q2_opt1')">CONCAT</button>
+        <button id='q2_opt2' class='option-pill qs-option' data-qid='q2' data-correct='true' type='button' onclick="qsSelectOption('q2','q2_opt2')">VLOOKUP / XLOOKUP</button>
+        <button id='q2_opt3' class='option-pill qs-option' data-qid='q2' data-correct='false' type='button' onclick="qsSelectOption('q2','q2_opt3')">&amp;</button>
+        <button id='q2_opt4' class='option-pill qs-option' data-qid='q2' data-correct='false' type='button' onclick="qsSelectOption('q2','q2_opt4')">Data Validation</button>
+  </div>
+  <div class='qs-controls'>
+    <button class='w-btn' type='button' onclick="qsCheckQuestion('q2')"><span class='icon'>✅</span><span>Check</span></button>
+    <button class='w-btn secondary' type='button' onclick="qsResetQuestion('q2')"><span class='icon'>🔁</span><span>Reset</span></button>
+  </div>
+  <div class='qs-status'>
+    <div id='qs-result-q2' class='qs-result'>Select an option, then click Check answer.</div>
+    <div id='qs-feedback-q2' class='qs-feedback'></div>
+  </div>
+</div>
+    <div class='qs-card' data-qid='q3'>
+  <div class='qs-question-label'>Question 3</div>
+  <div class='qs-prompt'>Using <code>CONCAT</code> is the only way to combine strings of text. </div>
+  <div class='options-list'>
+    <button id='q3_opt1' class='option-pill qs-option' data-qid='q3' data-correct='false' type='button' onclick="qsSelectOption('q3','q3_opt1')">True</button>
+        <button id='q3_opt2' class='option-pill qs-option' data-qid='q3' data-correct='true' type='button' onclick="qsSelectOption('q3','q3_opt2')">False</button>
+  </div>
+  <div class='qs-controls'>
+    <button class='w-btn' type='button' onclick="qsCheckQuestion('q3')"><span class='icon'>✅</span><span>Check</span></button>
+    <button class='w-btn secondary' type='button' onclick="qsResetQuestion('q3')"><span class='icon'>🔁</span><span>Reset</span></button>
+  </div>
+  <div class='qs-status'>
+    <div id='qs-result-q3' class='qs-result'>Select an option, then click Check answer.</div>
+    <div id='qs-feedback-q3' class='qs-feedback'></div>
+  </div>
+</div>
+    <div class='qs-card' data-qid='q4'>
+  <div class='qs-question-label'>Question 4</div>
+  <div class='qs-prompt'>Data validation can only be used for text strings. </div>
+  <div class='options-list'>
+    <button id='q4_opt1' class='option-pill qs-option' data-qid='q4' data-correct='false' type='button' onclick="qsSelectOption('q4','q4_opt1')">True</button>
+        <button id='q4_opt2' class='option-pill qs-option' data-qid='q4' data-correct='true' type='button' onclick="qsSelectOption('q4','q4_opt2')">False</button>
+  </div>
+  <div class='qs-controls'>
+    <button class='w-btn' type='button' onclick="qsCheckQuestion('q4')"><span class='icon'>✅</span><span>Check</span></button>
+    <button class='w-btn secondary' type='button' onclick="qsResetQuestion('q4')"><span class='icon'>🔁</span><span>Reset</span></button>
+  </div>
+  <div class='qs-status'>
+    <div id='qs-result-q4' class='qs-result'>Select an option, then click Check answer.</div>
+    <div id='qs-feedback-q4' class='qs-feedback'></div>
+  </div>
+</div>
+  </div>
+  <div class='qg-gate' id='qg-before'>
+    <div class='qg-gate-title'>Locked</div>
+    <p class='qg-gate-text'>To unlock the next section, complete the questions above and achieve the required score.</p>
+  </div>
+  <div class='qg-release qg-hidden' id='qg-after'></div>
+</div>
+<script>
+
+const quizsetState = {};
+
+function qsSelectOption(qid, id) {
+  if (!quizsetState[qid]) quizsetState[qid] = { selected: null };
+  quizsetState[qid].selected = id;
+
+  // Clear selection/correct/incorrect for this question
+  document.querySelectorAll('.qs-option[data-qid="' + qid + '"]').forEach(btn => {
+    btn.classList.remove('selected', 'correct', 'incorrect');
+  });
+
+  const el = document.getElementById(id);
+  if (el) {
+    el.classList.add('selected');
+  }
+
+  const result = document.getElementById('qs-result-' + qid);
+  const feedback = document.getElementById('qs-feedback-' + qid);
+  if (result) result.textContent = 'When you are ready, click Check answer.';
+  if (feedback) feedback.textContent = '';
+}
+
+function qsCheckQuestion(qid) {
+  const state = quizsetState[qid];
+  const result = document.getElementById('qs-result-' + qid);
+  const feedback = document.getElementById('qs-feedback-' + qid);
+
+  if (!state || !state.selected) {
+    if (result) result.textContent = 'Please select an option before checking your answer.';
+    if (feedback) feedback.textContent = '';
+    return;
+  }
+
+  const selectedId = state.selected;
+
+  // Clear old correct/incorrect
+  document.querySelectorAll('.qs-option[data-qid="' + qid + '"]').forEach(btn => {
+    btn.classList.remove('correct', 'incorrect');
+  });
+
+  const el = document.getElementById(selectedId);
+  if (!el) return;
+
+  const isCorrect = el.getAttribute('data-correct') === 'true';
+  if (!quizsetState[qid]) quizsetState[qid] = { selected: null };
+  quizsetState[qid].isCorrect = isCorrect;
+
+  if (isCorrect) {
+    el.classList.add('correct');
+    if (result) result.textContent = 'Correct!';
+    if (feedback) feedback.textContent = 'Nice work – that is the correct answer. 🎉';
+  } else {
+    el.classList.add('incorrect');
+    if (result) result.textContent = 'Not quite.';
+    if (feedback) feedback.textContent = 'Have another look and try a different option.';
+  }
+
+  // If this page includes a gate, refresh it
+  const reqEl = document.getElementById('qg-required');
+  if (reqEl) {
+    qsUpdateGate(reqEl.getAttribute('data-required'));
+  }
+}
+
+
+function qsResetQuestion(qid) {
+  quizsetState[qid] = { selected: null, isCorrect: null };
+  document.querySelectorAll('.qs-option[data-qid="' + qid + '"]').forEach(btn => {
+    btn.classList.remove('selected', 'correct', 'incorrect');
+  });
+  const result = document.getElementById('qs-result-' + qid);
+  const feedback = document.getElementById('qs-feedback-' + qid);
+  if (result) result.textContent = 'Select an option, then click Check answer.';
+  if (feedback) feedback.textContent = '';
+  const reqEl = document.getElementById('qg-required');
+  if (reqEl) qsUpdateGate(reqEl.getAttribute('data-required'));
+}
+
+
+const quizgate = { injected: false, encodedReleased: '' };
+
+function qgInjectReleasedOnce(){
+  if (quizgate.injected) return;
+  quizgate.injected = true;
+
+  var box = document.getElementById('qg-after');
+  if (!box) return;
+
+  try {
+    var html = decodeURIComponent(quizgate.encodedReleased || '');
+    box.innerHTML = html;
+  } catch(e) {
+    box.innerHTML = '<p><b>Unlocked.</b></p>';
+  }
+}
+
+function qsComputeOverall() {
+  const cards = document.querySelectorAll('.qs-card');
+  let total = cards.length;
+  let correct = 0;
+
+  cards.forEach(card => {
+    const qid = card.getAttribute('data-qid');
+    if (!qid) return;
+    const st = quizsetState[qid];
+    if (st && st.isCorrect === true) correct++;
+  });
+
+  const pct = total ? (correct / total) * 100 : 0;
+  return { total, correct, pct };
+}
+
+function qsUpdateGate(requiredPct) {
+  const req = parseFloat(requiredPct || 0);
+  const res = qsComputeOverall();
+  
+  console.log('Gate:', { req:req, res:res });
+
+  const pill = document.getElementById('qg-overall-pill');
+  if (pill) pill.textContent = 'Overall: ' + res.correct + '/' + res.total + ' (' + Math.round(res.pct) + '%)';
+
+  const beforeBox = document.getElementById('qg-before');
+  const afterBox  = document.getElementById('qg-after');
+
+  if (!beforeBox || !afterBox) return;
+
+  if (res.total > 0 && (res.pct + 1e-9) >= req) {
+    // Inject then reveal
+    qgInjectReleasedOnce();
+    beforeBox.classList.add('qg-hidden');
+    afterBox.classList.remove('qg-hidden');
+  } else {
+    beforeBox.classList.remove('qg-hidden');
+    afterBox.classList.add('qg-hidden');
+  }
+}
+
+quizgate.encodedReleased = "<div style=%22padding: 8px 14px 10px 14px;%22><div style=%22display: flex; align-items: flex-start; gap: 8px; margin: 0 0 8px 0;%22><span style=%22flex: 0 0 auto; width: 24px; height: 24px; margin-top: 2px; border-radius: 999px; border: 2px solid currentColor; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; line-height: 1; background-color: transparent;%22>1</span><div style=%22flex: 1 1 auto; margin: 0; padding: 0; font-size: 14px; line-height: 1.5; color: #111827; margin-top: 5px;%22>Download the following Microsoft Excel file and open it in Microsoft Excel to review your work.</div><a class=%22uom-ui-button uom-primary%22 href=%222026 ACCT10002/Workbook-2.xlsx%22>Download</a></div><div style=%22display: flex; align-items: flex-start; gap: 8px; margin: 0 0 8px 0;%22><span style=%22flex: 0 0 auto; width: 24px; height: 24px; margin-top: 2px; border-radius: 999px; border: 2px solid currentColor; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; line-height: 1; background-color: transparent;%22>2</span><div style=%22flex: 1 1 auto; margin: 0; padding: 0; font-size: 14px; line-height: 1.5; color: #111827; margin-top: 5px;%22>View a video to assist you in progressing through the material. </div><iframe class=%22lti-embed%22 style=%22width: 640px; height: 420px; margin-left: 40px;%22 title=%222026 S1 IFA SB1.mp4%22 src=%22https://echo360.net.au/media/10f2cc8f-74d2-4c5b-bea2-ef65656f2b11/public%22 width=%221280%22 height=%22780%22 loading=%22lazy%22 allowfullscreen=%22allowfullscreen%22 webkitallowfullscreen=%22webkitallowfullscreen%22 mozallowfullscreen=%22mozallowfullscreen%22 allow=%22geolocation *; microphone *; camera *; midi *; encrypted-media *; autoplay *; clipboard-write *; display-capture *%22></iframe></div></div>";
+document.addEventListener('DOMContentLoaded', function(){ qsUpdateGate('100'); });
+</script>
+</body>
+</html>
+
