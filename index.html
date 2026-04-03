@@ -4,7 +4,7 @@
   <meta charset='UTF-8'>
   <title>Video Release</title>
   <style>
- 
+
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: #111827;
@@ -136,7 +136,7 @@ h1, h2, h3 {
     padding: 12px 10px 26px 10px;
   }
 }
- 
+
 .qg-gate {
   margin-top: 14px;
   border-radius: 12px;
@@ -179,7 +179,7 @@ h1, h2, h3 {
   border: 1px solid #cbd5e1;
   background: #ffffff;
 }
- 
+
     .uom-ui-button {
 	border: 1px solid;
 	border-radius: 4px;
@@ -190,13 +190,13 @@ h1, h2, h3 {
 	transition: border-color 0.15s ease-in-out, color 0.15s ease-in-out,
 		background-color 0.15s ease-in-out;
 }
- 
+
 .uom-ui-button.uom-primary {
 	background-color: rgb(70, 200, 240);
 	color: rgb(0, 15, 70);
 	border-color: rgb(70, 200, 240);
 }
- 
+
 .uom-ui-button.uom-primary:hover,
 .uom-ui-button.uom-primary:focus {
 	background-color: rgb(209, 241, 251);
@@ -204,9 +204,9 @@ h1, h2, h3 {
 	color: rgb(0 15 70);
 	cursor: pointer;
 }
- 
+
 .qg-hidden{display:none;}
- 
+
   </style>
 </head>
 <body>
@@ -218,7 +218,7 @@ h1, h2, h3 {
     <span class='qg-pill' id='qg-overall-pill'>Overall: 0/2 (0%)</span>
   </div>
   <div class='qs-grid' style='grid-template-columns: repeat(2, minmax(0, 1fr));'>
- 
+
     <div class='qs-card' data-qid='q1'>
       <div class='qs-question-label'>Question 1</div>
       <div class='qs-prompt'>How much in wages has Xero Electrical incurred but not yet paid as of 28th February 2026?</div>
@@ -237,7 +237,7 @@ h1, h2, h3 {
         <div id='qs-feedback-q1' class='qs-feedback'></div>
       </div>
     </div>
- 
+
     <div class='qs-card' data-qid='q2'>
       <div class='qs-question-label'>Question 2</div>
       <div class='qs-prompt'>For the adjustment to wages owing, the account that is debited is:</div>
@@ -254,7 +254,7 @@ h1, h2, h3 {
         <div id='qs-feedback-q2' class='qs-feedback'></div>
       </div>
     </div>
- 
+
   </div>
   <div class='qg-gate' id='qg-before'>
     <div class='qg-gate-title'>Locked</div>
@@ -263,52 +263,52 @@ h1, h2, h3 {
   <div class='qg-release qg-hidden' id='qg-after'></div>
 </div>
 <script>
- 
+
 const quizsetState = {};
- 
+
 function qsSelectOption(qid, id) {
   if (!quizsetState[qid]) quizsetState[qid] = { selected: null };
   quizsetState[qid].selected = id;
- 
+
   document.querySelectorAll('.qs-option[data-qid="' + qid + '"]').forEach(btn => {
     btn.classList.remove('selected', 'correct', 'incorrect');
   });
- 
+
   const el = document.getElementById(id);
   if (el) {
     el.classList.add('selected');
   }
- 
+
   const result = document.getElementById('qs-result-' + qid);
   const feedback = document.getElementById('qs-feedback-' + qid);
   if (result) result.textContent = 'When you are ready, click Check answer.';
   if (feedback) feedback.textContent = '';
 }
- 
+
 function qsCheckQuestion(qid) {
   const state = quizsetState[qid];
   const result = document.getElementById('qs-result-' + qid);
   const feedback = document.getElementById('qs-feedback-' + qid);
- 
+
   if (!state || !state.selected) {
     if (result) result.textContent = 'Please select an option before checking your answer.';
     if (feedback) feedback.textContent = '';
     return;
   }
- 
+
   const selectedId = state.selected;
- 
+
   document.querySelectorAll('.qs-option[data-qid="' + qid + '"]').forEach(btn => {
     btn.classList.remove('correct', 'incorrect');
   });
- 
+
   const el = document.getElementById(selectedId);
   if (!el) return;
- 
+
   const isCorrect = el.getAttribute('data-correct') === 'true';
   if (!quizsetState[qid]) quizsetState[qid] = { selected: null };
   quizsetState[qid].isCorrect = isCorrect;
- 
+
   if (isCorrect) {
     el.classList.add('correct');
     if (result) result.textContent = 'Correct!';
@@ -318,13 +318,13 @@ function qsCheckQuestion(qid) {
     if (result) result.textContent = 'Not quite.';
     if (feedback) feedback.textContent = 'Have another look and try a different option.';
   }
- 
+
   const reqEl = document.getElementById('qg-required');
   if (reqEl) {
     qsUpdateGate(reqEl.getAttribute('data-required'));
   }
 }
- 
+
 function qsResetQuestion(qid) {
   quizsetState[qid] = { selected: null, isCorrect: null };
   document.querySelectorAll('.qs-option[data-qid="' + qid + '"]').forEach(btn => {
@@ -337,16 +337,16 @@ function qsResetQuestion(qid) {
   const reqEl = document.getElementById('qg-required');
   if (reqEl) qsUpdateGate(reqEl.getAttribute('data-required'));
 }
- 
+
 const quizgate = { injected: false, encodedReleased: '' };
- 
+
 function qgInjectReleasedOnce(){
   if (quizgate.injected) return;
   quizgate.injected = true;
- 
+
   var box = document.getElementById('qg-after');
   if (!box) return;
- 
+
   try {
     var html = decodeURIComponent(quizgate.encodedReleased || '');
     box.innerHTML = html;
@@ -354,35 +354,35 @@ function qgInjectReleasedOnce(){
     box.innerHTML = '<p><b>Unlocked.</b></p>';
   }
 }
- 
+
 function qsComputeOverall() {
   const cards = document.querySelectorAll('.qs-card');
   let total = cards.length;
   let correct = 0;
- 
+
   cards.forEach(card => {
     const qid = card.getAttribute('data-qid');
     if (!qid) return;
     const st = quizsetState[qid];
     if (st && st.isCorrect === true) correct++;
   });
- 
+
   const pct = total ? (correct / total) * 100 : 0;
   return { total, correct, pct };
 }
- 
+
 function qsUpdateGate(requiredPct) {
   const req = parseFloat(requiredPct || 0);
   const res = qsComputeOverall();
- 
+
   const pill = document.getElementById('qg-overall-pill');
   if (pill) pill.textContent = 'Overall: ' + res.correct + '/' + res.total + ' (' + Math.round(res.pct) + '%)';
- 
+
   const beforeBox = document.getElementById('qg-before');
   const afterBox  = document.getElementById('qg-after');
- 
+
   if (!beforeBox || !afterBox) return;
- 
+
   if (res.total > 0 && (res.pct + 1e-9) >= req) {
     qgInjectReleasedOnce();
     beforeBox.classList.add('qg-hidden');
@@ -392,8 +392,8 @@ function qsUpdateGate(requiredPct) {
     afterBox.classList.add('qg-hidden');
   }
 }
- 
-quizgate.encodedReleased = "<div style=%22padding: 8px 14px 10px 14px;%22><div style=%22display: flex; align-items: center; gap: 12px;%22><div style=%22font-size: 14px; line-height: 1.5; color: #111827;%22>Download the following file to view the solution guide to Requirement 1.</div><a class=%22uom-ui-button uom-primary%22 href=%22Requirement_1_SOLUTIONS.pdf%22 download>Download</a></div></div>";
+
+quizgate.encodedReleased = "<div style=%22padding: 8px 14px 10px 14px;%22><div style=%22display: flex; align-items: center; gap: 12px;%22><div style=%22font-size: 14px; line-height: 1.5; color: #111827;%22>Download the following file to view the solution guide to Requirement 1.</div><a class=%22uom-ui-button uom-primary%22 href=%22https://canvas.lms.unimelb.edu.au/files/26867831/download?download_frd=1&verifier=G27RjtcsCfsEQgvswDtFD6G2k5FiEAe95cPt0YAh%22 download>Download</a></div></div>";
 document.addEventListener('DOMContentLoaded', function(){ qsUpdateGate('100'); });
 </script>
 </body>
